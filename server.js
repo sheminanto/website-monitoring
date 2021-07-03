@@ -11,5 +11,6 @@ app.get("/", function (req, res) {
   console.log(__dirname);
 });
 app.use('/css',express.static(path.join(__dirname, 'public/css')));
+app.use('/js',express.static(path.join(__dirname, 'public/javascripts')));
 app.listen(port);
 console.log("Server started at http://localhost:" + port);
