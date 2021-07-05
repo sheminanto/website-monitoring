@@ -15,6 +15,20 @@ function disableUi() {
     document.getElementById('monitor').disabled=true;
 
 }
+
+function play() {
+    console.log('alert');
+    var audio = new Audio(
+'/sounds/alert.wav');
+    audio.play();
+}
+
+
+function changeDetected(id){
+    let time = new Date().toLocaleString();
+    play();
+    $('#log-list').append('<li>Change detected for the element with ID : '+id+' at '+time+'</li><hr/>');
+}
       
 function handleSubmit() {
     hideError();
@@ -29,7 +43,8 @@ function handleSubmit() {
     let regex1 = new RegExp(expression1);
     let regex2 = new RegExp(expression2);
     let validId = id.match(regex2);
-    let validUrl = url.match(regex1)
+    // let validUrl = url.match(regex1)
+    let validUrl = true;
     let res;
     if(validId && validUrl && delay !== "") {
         res = true;
@@ -56,6 +71,10 @@ function handleSubmit() {
         const ws = new WebSocket("ws://localhost:8082");
         ws.onmessage = async (event) => {
            console.log(`Server has sent : ${await event.data}`);
+          
+            changeDetected(id);
+            notifyMe(url);
+        
         };
 
         ws.addEventListener("open", () => {
@@ -63,14 +82,36 @@ function handleSubmit() {
             console.log("Now we are connected");
         });
 
-        $(document).ready(function(){
-            $('#time').html(new Date().toLocaleString()) ;
-            console.log();
-        $('.toast').toast('show');
-        });
+        
     }
 
 
         
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    if (!Notification) {
+     alert('Desktop notifications not available in your browser. Try Chromium.');
+     return;
+    }
+   
+    if (Notification.permission !== 'granted')
+     Notification.requestPermission();
+   });
+   
+   
+function notifyMe(url) {
+    console.log('notify');
+    if (Notification.permission !== 'granted')
+     Notification.requestPermission();
+    else {
+     var notification = new Notification('Change Detected', {
+      icon: 'https://icons8.com/icon/z8yqcMdq4T2h/notification',
+      body: 'A change in the contents of the provided website has been detected...!',
+     });
+     notification.onclick = function() {
+      window.open(url);
+     };
+    }
+   }
+   
