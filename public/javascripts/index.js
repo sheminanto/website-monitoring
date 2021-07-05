@@ -20,7 +20,8 @@ function handleSubmit() {
     hideError();
     const id = document.getElementById('id').value;
     const url = document.getElementById('siteurl').value;
-    const delay = document.getElementById('timeInterval').value;  
+    const delay = document.getElementById('timeInterval').value * 1000;
+     
 
     let expression1 = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     let expression2 =  /^[A-Za-z]+[\w\-\:\.]*$/;
