@@ -5,4 +5,19 @@ body{
   font-size: 14px;
   background: #eee;
   color:  #666;
+  overflow: auto;
+}
+
+
+.inputForm{
+  background-color: #F5F5F5;
+}
+
+.logs{
+  height: 240px;
+}
+
+.log-details{
+  max-height: 230px;
+  overflow: auto;
 }

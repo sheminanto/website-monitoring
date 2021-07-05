@@ -17,6 +17,7 @@ function disableUi() {
 }
       
 function handleSubmit() {
+    hideError();
     const id = document.getElementById('id').value;
     const url = document.getElementById('siteurl').value;
     const delay = document.getElementById('timeInterval').value;  
@@ -60,8 +61,15 @@ function handleSubmit() {
             ws.send(`${url},${id},${delay}`);
             console.log("Now we are connected");
         });
+
+        $(document).ready(function(){
+            $('#time').html(new Date().toLocaleString()) ;
+            console.log();
+        $('.toast').toast('show');
+        });
     }
 
 
         
 }
+
