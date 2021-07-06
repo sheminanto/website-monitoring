@@ -70,7 +70,7 @@ function handleSubmit() {
     disableUi();
     // const ws = new WebSocket("ws://localhost:8082");
     const host = window.location.hostname;
-    const ws_url = "ws://" + host;
+    const ws_url = "wss://" + host;
     // const ws = new WebSocket("ws://localhost:8000/");
     const ws = new WebSocket(ws_url);
 
