@@ -68,8 +68,8 @@ function handleSubmit() {
   if (res) {
     document.getElementById("status").style.display = "block";
     disableUi();
-
-    let host = window.location.href;
+    let host;
+    host = window.location.href;
     console.log(host);
     host = host.split(":");
     host[0] === "https" ? (host[0] = "wss") : (host[0] = "ws");
