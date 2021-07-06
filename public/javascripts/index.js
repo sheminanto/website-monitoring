@@ -68,10 +68,14 @@ function handleSubmit() {
   if (res) {
     document.getElementById("status").style.display = "block";
     disableUi();
-    // const ws = new WebSocket("ws://localhost:8082");
-    const host = window.location.hostname;
-    const ws_url = "wss://" + host;
-    // const ws = new WebSocket("ws://localhost:8000/");
+
+    let host = window.location.href;
+    console.log(host);
+    host = host.split(":");
+    host[0] === "https" ? (host[0] = "wss") : (host[0] = "ws");
+
+    const ws_url = host.join(":");
+
     const ws = new WebSocket(ws_url);
 
     ws.onmessage = async (event) => {
@@ -94,7 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  if (Notification.permission !== "granted") Notification.requestPermission();
+  if (Notification.permission !== "granted")
+    Notification.requestPermission().then();
 });
 
 function notifyMe(url) {
