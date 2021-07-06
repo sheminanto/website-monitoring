@@ -25,7 +25,7 @@ wss.on("connection", (ws) => {
       if (recent_data !== initial_data) {
         initial_data = recent_data;
         ws.send("change detected");
-      }
+      } else ws.send("No change");
     }, delay);
 
     ws.on("close", () => {
