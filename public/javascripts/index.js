@@ -68,13 +68,18 @@ function handleSubmit() {
   if (res) {
     document.getElementById("status").style.display = "block";
     disableUi();
-    let host;
-    host = window.location.href;
-    console.log(host);
-    host = host.split(":");
-    host[0] === "https" ? (host[0] = "wss") : (host[0] = "ws");
 
-    const ws_url = host.join(":");
+    const host = window.location.host;
+    let protocol = window.location.protocol;
+
+    protocol = protocol === "https:" ? "wss:" : "ws:";
+
+    const ws_url = `${protocol}//${host}`;
+    console.log(ws_url);
+
+    // host = host.split(":");
+    // host[0] === "https" ? (host[0] = "wss") : (host[0] = "ws");
+    // const ws_url = host.join(":");
 
     const ws = new WebSocket(ws_url);
 
@@ -98,15 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  if (Notification.permission !== "granted")
-    Notification.requestPermission().then();
+  if (Notification.permission !== "granted") Notification.requestPermission();
 });
 
 function notifyMe(url) {
   console.log("notify");
   if (Notification.permission !== "granted") Notification.requestPermission();
   else {
-    var notification = new Notification("Change Detected", {
+    let notification = new Notification("Change Detected", {
       icon: "https://icons8.com/icon/z8yqcMdq4T2h/notification",
       body: "A change in the contents of the provided website has been detected...!",
     });
